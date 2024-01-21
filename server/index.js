@@ -13,8 +13,13 @@ app.use(cors());
 // NodeJS serve the files for our built React app
 const __dirname = path.resolve();
 
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use("/api/properties", propertyRoutes);
-app.use(express.static(path.resolve(__dirname, '../client/build', 'index.html')));
+
+// Catch-all handler for client-side routing
+app.get('*', function(request, response) {
+  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
