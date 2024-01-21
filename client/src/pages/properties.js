@@ -9,8 +9,8 @@ import {
     CardActions,
     Button,
     Grid,
+    Pagination
 } from "@mui/material";
-
 import SearchForm from "components/search-form";
 
 // utils
@@ -25,28 +25,27 @@ const styles = {
 
 export default function Properties() {
     const [properties, setProperties] = useState([]);
+    const [page, setPage] = React.useState(1);
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
 
     const handleSearchProperties = ({ location, priceRange, propertyType }) => {
-        if (!location && !priceRange && !propertyType) {
-            alert("Please enter a search query!");
-            return;
-        }
-
-        axios.get("/api/properties/search?location", { params: { locs: location, priceRange, propertyType } })
+        axios.get("/api/properties/search?location", { params: { locs: location, priceRange, propertyType, page } })
             .then(({ data }) => {
                 setProperties(data);
             })
             .catch((error) => console.error("Error fetching data:", error));
     };
 
-
     useEffect(() => {
-        axios.get("/api/properties")
+        axios.get("/api/properties",  { params: { page } })
             .then(({ data }) => {
                 setProperties(data);
             })
             .catch((error) => console.error("Error fetching data:", error));
-    }, []);
+    }, [page]);
 
     return (
         <Container>
@@ -72,6 +71,7 @@ export default function Properties() {
                     </Grid>
                 ))}
             </Grid>
+            <Pagination count={5} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
         </Container>
     );
 }

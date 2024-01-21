@@ -1,25 +1,31 @@
 import properties from '../data/properties.js';
 
 const getProperties = async (req, res) => {
-    res.json(properties);
+    const { page } = req.query;
+    const limit = 10;
+    const offset = (page - 1) * limit;
+    const paginatedProperties = properties.slice(offset, offset + limit);
+
+    res.json(paginatedProperties);
 }
 
 const getFilteredProperties = async (req, res) => {
-    const { locs, priceRange, propertyType } = req.query;
-    
-    if (!locs && !priceRange && !propertyType) {
-      res.json(properties);
-      return;
-    }
+    const { locs, priceRange, propertyType, page } = req.query;
 
-    const filteredProperties = properties.filter(property => {
-      return (
-        property?.location?.toLowerCase()?.includes(locs?.toLowerCase()) &&
-        property?.price >= Number(priceRange[0]) &&
-        property?.price <= Number(priceRange[1]) &&
-        property?.type?.toLowerCase() === propertyType?.toLowerCase()
-      );
+    const limit = 10;
+    const offset = (page - 1) * limit;
+    
+    const filteredProperties = paginatedProperties.filter(property => {
+      const checkLocation = locs ? property?.location?.toLowerCase()?.includes(locs?.toLowerCase()) : true;
+      const checkPriceRange = priceRange ? (
+        property?.price >= Number(priceRange[0]) && property?.price <= Number(priceRange[1])
+      ) : true;
+      const checkPropertyType = propertyType ? property?.type?.toLowerCase() === propertyType?.toLowerCase() : true;
+    
+      return checkLocation && checkPriceRange && checkPropertyType;
     });
+
+    const paginatedProperties = filteredProperties.slice(offset, offset + limit);
   
     res.json(filteredProperties);
 }
