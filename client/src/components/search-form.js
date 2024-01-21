@@ -49,7 +49,7 @@ const PropertySearchForm = ({ onSearch }) => {
                     >
                         <MenuItem value="apartment">Apartment</MenuItem>
                         <MenuItem value="house">House</MenuItem>
-                        <MenuItem value="condo">Flat</MenuItem>
+                        <MenuItem value="flat">Flat</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
