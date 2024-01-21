@@ -1,0 +1,22 @@
+{
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "all",
+    "printWidth": 120,
+    "tabWidth": 4,
+    "indent": 4,
+    "useTabs": false,
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "arrowParens": "avoid",
+    "importDeclaration.forceSingleLine": true,
+    "endOfLine": "auto",
+    "overrides": [
+        {
+            "files": "*.json",
+            "options": {
+                "printWidth": 200
+            }
+        }
+    ]
+}
