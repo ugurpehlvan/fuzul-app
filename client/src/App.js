@@ -1,13 +1,14 @@
 import React from "react";
 
 // components
-import Properties from "./pages/properties";
+import Properties from "./pages/Properties";
+import { Container } from "@mui/material";
 
 function App() {
   return (
-    <div className="App">
-      <Properties />
-    </div>
+      <Container>
+        <Properties />
+      </Container>
   );
 }
 

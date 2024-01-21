@@ -1,18 +1,44 @@
 import React, { useState, useEffect } from 'react';
 
+// components
+import {
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Grid,
+} from '@mui/material';
+import { makeStyles } from "@mui/styles";
+
+import SearchForm from '../components/SearchForm';
+
 // utils
 import axios from 'axios';
 
-export default function Properties() {
+// styles
+const useStyles = makeStyles((theme) => ({
+  card: {
+    margin: 8,
+  },
+}));
+
+export default function Properties({  }) {
+  const classes = useStyles();
     const [properties, setProperties] = useState([]);
 
-    const handlePropertiesFilter = () => {
-        axios.get('/api/properties/search?location=City&priceRange=10,500000&propertyType=Apartment')
-            .then(({ data }) => {
-              console.log("data", data);
-                // setProperties(data);
-            })
-            .catch((error) => console.error('Error fetching data:', error));
+    const handleSearchProperties = ({ location, priceRange, propertyType }) => {
+      if (!location && !priceRange && !propertyType) {
+        alert('Please enter a search query!');
+        return;
+      }
+
+      axios.get('/api/properties/search?location', { params: { locs: location, priceRange, propertyType } })
+          .then(({ data }) => {
+              setProperties(data);
+          })
+          .catch((error) => console.error('Error fetching data:', error));
     }
 
 
@@ -25,16 +51,31 @@ export default function Properties() {
   }, []);
 
   return (
-    <div>
-      <h2>Property List</h2>
-      <button onClick={handlePropertiesFilter}>Filter</button>
-      <ul>
+    <Container>
+       <Typography variant="h4" gutterBottom>
+        Property Search
+      </Typography>
+      <SearchForm onSearch={handleSearchProperties} />
+       <Grid container spacing={2} >
         {properties.map((property) => (
-          <li key={property.id}>
-            {property.location} - ${property.price} - {property.type}
-          </li>
+          <Grid key={property.id} item xs={12} sm={6} md={6}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  {property.location}
+                </Typography>
+                <Typography color="textSecondary">{`Price: $${property.price.toLocaleString()}`}</Typography>
+                <Typography color="textSecondary">{`Type: ${property.type}`}</Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" color="primary">
+                  View Details
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
         ))}
-      </ul>
-    </div>
+      </Grid>
+    </Container>
   );
 };
