@@ -1,12 +1,22 @@
-const getProperties = async (req, res) => {
-    res.json({"test": "test"});
-    // try {
-    //     // const story = await Story.find();
-    //     res.status(200).json("test");
-    // } catch (error) {
-    //     res.status(404).json({ message: error.message })
-    // }
+import properties from '../data/properties.json' assert { type: "json" };
 
+const getProperties = async (req, res) => {
+    res.json(properties);
 }
 
-export { getProperties };
+const getFilteredProperties = async (req, res) => {
+    const { location, priceRange, propertyType } = req.query;
+    
+    const filteredProperties = properties.filter(property => {
+      return (
+        property.location.includes(location) &&
+        property.price >= priceRange[0] &&
+        property.price <= priceRange[1] &&
+        property.type === propertyType
+      );
+    });
+  
+    res.json(filteredProperties);
+}
+
+export { getProperties, getFilteredProperties };

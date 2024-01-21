@@ -11,9 +11,10 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(cors());
-// Have Node serve the files for our built React app
+// NodeJS serve the files for our built React app
 const __dirname = path.resolve();
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+
 app.use("/api/properties", propertyRoutes);
 
 app.listen(PORT, () => {
