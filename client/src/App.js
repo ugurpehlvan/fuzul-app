@@ -1,19 +1,19 @@
 import React from "react";
 
-function App() {
-  const [data, setData] = React.useState(null);
+// components
+import Properties from "./pages/properties";
 
+function App() {
   React.useEffect(() => {
     fetch("/api/properties")
       .then((res) => res.json())
       .then((data) => {
-        setData(data.test);
       });
   }, []);
 
   return (
     <div className="App">
-      <p>{!data ? "Loading..." : data}</p>
+      <Properties />
     </div>
   );
 }
