@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 
-import SearchForm from '../components/SearchForm';
+import SearchForm from '../components/search-form';
 
 // utils
 import axios from 'axios';

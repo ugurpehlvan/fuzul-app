@@ -1,4 +1,4 @@
-[
+export default [
     {
       "id": 1,
       "location": "City A",
@@ -239,4 +239,4 @@
       "price": 4096000000,
       "type": "Apartment"
     }
-  ]
+]

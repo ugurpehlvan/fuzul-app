@@ -1,4 +1,4 @@
-import properties from '../data/properties.json' assert { type: "json" };
+import properties from '../data/properties.js';
 
 const getProperties = async (req, res) => {
     res.json(properties);
