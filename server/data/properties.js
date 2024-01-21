@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   { "id": 1, "location": "New York City", "price": 200000, "type": "Apartment" },
   { "id": 2, "location": "Los Angeles", "price": 350000, "type": "House" },
   { "id": 3, "location": "San Francisco", "price": 800000, "type": "House" },

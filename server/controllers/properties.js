@@ -1,4 +1,4 @@
-import properties from '../data/properties.js';
+const properties = require('../data/properties.js');
 
 const getProperties = async (req, res) => {
     const { page } = req.query;
@@ -30,4 +30,4 @@ const getFilteredProperties = async (req, res) => {
     res.json({ properties: paginatedProperties, total: filteredProperties.length });
 }
 
-export { getProperties, getFilteredProperties };
+module.exports = { getProperties, getFilteredProperties };

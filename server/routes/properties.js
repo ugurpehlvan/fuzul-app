@@ -1,9 +1,9 @@
-import { Router } from "express";
-import { getProperties, getFilteredProperties } from "../controllers/properties.js";
+const { Router } = require("express");
+const { getProperties, getFilteredProperties } = require("../controllers/properties.js");
 
 const router = Router();
 
 router.get("/", getProperties);
 router.get("/search", getFilteredProperties);
 
-export default router;
+module.exports = router;
