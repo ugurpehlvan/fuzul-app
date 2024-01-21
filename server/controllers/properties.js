@@ -5,14 +5,19 @@ const getProperties = async (req, res) => {
 }
 
 const getFilteredProperties = async (req, res) => {
-    const { location, priceRange, propertyType } = req.query;
+    const { locs, priceRange, propertyType } = req.query;
     
+    if (!locs && !priceRange && !propertyType) {
+      res.json(properties);
+      return;
+    }
+
     const filteredProperties = properties.filter(property => {
       return (
-        property.location.includes(location) &&
-        property.price >= priceRange[0] &&
-        property.price <= priceRange[1] &&
-        property.type === propertyType
+        property?.location?.toLowerCase()?.includes(locs?.toLowerCase()) &&
+        property?.price >= Number(priceRange[0]) &&
+        property?.price <= Number(priceRange[1]) &&
+        property?.type?.toLowerCase() === propertyType?.toLowerCase()
       );
     });
   
