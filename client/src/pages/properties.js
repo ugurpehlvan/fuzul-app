@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Properties({  }) {
+export default function Properties() {
   const classes = useStyles();
     const [properties, setProperties] = useState([]);
 
