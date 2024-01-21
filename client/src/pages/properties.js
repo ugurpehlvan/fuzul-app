@@ -25,7 +25,8 @@ const styles = {
 
 export default function Properties() {
     const [properties, setProperties] = useState([]);
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -34,7 +35,8 @@ export default function Properties() {
     const handleSearchProperties = ({ location, priceRange, propertyType }) => {
         axios.get("/api/properties/search?location", { params: { locs: location, priceRange, propertyType, page } })
             .then(({ data }) => {
-                setProperties(data);
+                setProperties(data.properties);
+                setTotalCount(Math.ceil(data?.total / 10));
             })
             .catch((error) => console.error("Error fetching data:", error));
     };
@@ -42,7 +44,8 @@ export default function Properties() {
     useEffect(() => {
         axios.get("/api/properties",  { params: { page } })
             .then(({ data }) => {
-                setProperties(data);
+                setProperties(data?.properties);
+                setTotalCount(Math.ceil(data?.total / 10));
             })
             .catch((error) => console.error("Error fetching data:", error));
     }, [page]);
@@ -71,7 +74,7 @@ export default function Properties() {
                     </Grid>
                 ))}
             </Grid>
-            <Pagination count={5} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
+            <Pagination count={totalCount} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
         </Container>
     );
 }

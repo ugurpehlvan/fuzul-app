@@ -6,7 +6,7 @@ const getProperties = async (req, res) => {
     const offset = (page - 1) * limit;
     const paginatedProperties = properties.slice(offset, offset + limit);
 
-    res.json(paginatedProperties);
+    res.json({ properties: paginatedProperties, total: properties.length });
 }
 
 const getFilteredProperties = async (req, res) => {
@@ -15,7 +15,7 @@ const getFilteredProperties = async (req, res) => {
     const limit = 10;
     const offset = (page - 1) * limit;
     
-    const filteredProperties = paginatedProperties.filter(property => {
+    const filteredProperties = properties.filter(property => {
       const checkLocation = locs ? property?.location?.toLowerCase()?.includes(locs?.toLowerCase()) : true;
       const checkPriceRange = priceRange ? (
         property?.price >= Number(priceRange[0]) && property?.price <= Number(priceRange[1])
@@ -27,7 +27,7 @@ const getFilteredProperties = async (req, res) => {
 
     const paginatedProperties = filteredProperties.slice(offset, offset + limit);
   
-    res.json(filteredProperties);
+    res.json({ properties: paginatedProperties, total: filteredProperties.length });
 }
 
 export { getProperties, getFilteredProperties };
