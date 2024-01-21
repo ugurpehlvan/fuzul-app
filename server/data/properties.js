@@ -235,7 +235,7 @@ export default [
     },
     {
       "id": 40,
-      "location": "City NN",
+      "location": "City NM",
       "price": 4096000000,
       "type": "Apartment"
     }
