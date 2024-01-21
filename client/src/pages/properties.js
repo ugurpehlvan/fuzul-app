@@ -9,7 +9,7 @@ import {
     CardActions,
     Button,
     Grid,
-    Pagination
+    Pagination,
 } from "@mui/material";
 import SearchForm from "components/search-form";
 
