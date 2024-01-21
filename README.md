@@ -7,3 +7,7 @@ To run application
       Navigate to the client directory  => cd client
         npm install
         npm start
+
+
+### deployment url
+https://fuzul-app-ef707bf9e9ce.herokuapp.com/
